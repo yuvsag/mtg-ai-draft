@@ -1,6 +1,0 @@
-,name,manaCost,type,power,toughness,loyalty,text
-0,Wall of Faith,{U}{W},Creature — Bird,1,2,,"Flying
-When Wall of Faith enters the battlefield, you may search your library for a Plains card, put it onto the battlefield tapped, then shuffle.
-If a Mountain is tapped for mana, it produces {C} instead of any other type."
-1,Zhalfirin Guardian,{U}{W},Creature — Merfolk Soldier,1,1,,"Whenever Zhalfirin Guardian becomes blocked by a creature, destroy that creature at end of combat."
-2,Scattering Wizard,{U}{W},Creature — Merfolk Wizard,1,1,,{T}: Target creature gains flying until end of turn.
