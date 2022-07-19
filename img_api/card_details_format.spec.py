@@ -20,7 +20,9 @@ class CardFormatterSpec(unittest.TestCase):
     def test_converts_generic_mana_cost(self):
         self.assertEqual(
             self.formatter.combine_mana_symbols("{2}"), "{^^}")
-
+    def test_converts_generic_2_digit_mana_cost(self):
+        self.assertEqual(
+            self.formatter.combine_mana_symbols("{10}"), f"{{{'^' * 10}}}")
     def test_converts_colored_mana_cost(self):
         self.assertEqual(
             self.formatter.combine_mana_symbols("{2}{R}"), "{^^RR}")
@@ -32,6 +34,10 @@ class CardFormatterSpec(unittest.TestCase):
     def test_converts_tap_cost(self):
         self.assertEqual(
             self.formatter.combine_mana_symbols("{T}"), "T")
+
+    def test_converts_semi_numbered_mana(self):
+        self.assertEqual(
+            self.formatter.combine_mana_symbols("{2/R}{R}"), "{2RRR}")
 
     def test_splits_card_type_single_type(self):
         self.assertEqual(
@@ -48,6 +54,27 @@ class CardFormatterSpec(unittest.TestCase):
             self.formatter.split_card_type(
                 "Artifact Creature - Goblin Spirit"),
             {"type1": "Artifact", "type2": "Creature", "subtypes": "Goblin Spirit"})
+
+class CardTextFormatSpec(unittest.TestCase):
+
+    def __init__(self, methodName: str = ...) -> None:
+        super().__init__(methodName)
+        self.formatter = CardDetailsFormatter(
+            name="generic card name",
+            type="Creature", manaCost="{1}",
+            power=2, toughness=3,
+            text="haste")
+
+    def test_newline_replaced(self):
+        self.assertEqual(
+            self.formatter.convert_card_text("flying,\nhaste"),
+            "flying,\\\\haste"
+        )
+    def test_replaces_mana_symbols(self):
+        self.assertEqual(
+            self.formatter.convert_card_text("flying,\n{2}{R/U}{G}: gains +4/+2"),
+            "flying,\\\\{^^RUGG}: gains +4/+2"
+        )
 
 
 if __name__ == "__main__":
