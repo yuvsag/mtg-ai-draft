@@ -12,12 +12,22 @@ class CardDetailsFormatter:
         self.card_details = kwargs
         self.card_details_api: dict[str] = {}
 
-    def convert_stats(self):
+    def combine_stats(self):
         power = self.card_details.get('power')
         toughness = self.card_details.get('toughness')
         return f"{power}/{toughness}"
 
-    def convert_mana_symbol(self, mana_cost: str):
+    def split_card_type(self, card_type: str):
+        split_list = card_type.split(" ")
+        output = {}
+        output['type1'] = split_list[0]
+        output['type2'] = split_list[1] if 1 < len(split_list) else ""
+        output['subtypes'] = ""
+        if len(split_list) > 3:
+            output['subtypes'] = " ".join(split_list[3::])
+        return output
+
+    def combine_mana_symbols(self, mana_cost: str):
         char_list_cost = [c for c in mana_cost if c not in ['{', '}']]
         new_cost = []
         i = -1
@@ -25,6 +35,8 @@ class CardDetailsFormatter:
             i += 1
             symbol = char_list_cost[i]
 
+            if symbol == "T":
+                return "T"
             [val, is_int] = int_try_parse(symbol)
             if is_int:
                 new_cost.append('^' * val)
