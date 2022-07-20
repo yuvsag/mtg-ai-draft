@@ -51,7 +51,7 @@ def combine_mana_symbols(mana_cost: str):
         symbol = char_list_cost[i]
 
         if symbol == "T":
-            return "T"
+            return "{T}"
         [val, is_int] = int_try_parse(symbol)
         if is_int:
             new_cost.append('^' * val)
@@ -95,12 +95,16 @@ class CardDetailsFormatter:
         return output
 
     def combine_stats(self):
-        power = self.card_details.get('power')
-        toughness = self.card_details.get('toughness')
+        power = str(self.card_details.get('power', "nan"))
+        toughness = str(self.card_details.get('toughness', "nan"))
+        if power == "nan" or toughness == "nan":
+            return ""
         return f"{power}/{toughness}"
 
     def convert_mana_cost(self):
         mana_cost = self.card_details.get("manaCost", "")
+        if mana_cost != mana_cost:  # a nan check
+            return ""
         if mana_cost == "":
             return ""
         return combine_mana_symbols(mana_cost)
@@ -118,8 +122,7 @@ class CardDetailsFormatter:
     def convert_card_text(self, card_text: str):
         if card_text == "":
             return ""
-
-        new_text = card_text.replace("\n", "\\")
+        new_text = card_text.replace("\n", "\\").replace("\\n", "\\")
 
         braces = find_all_full_braces(new_text)
         old_new = []
