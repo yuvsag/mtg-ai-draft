@@ -1,6 +1,6 @@
 import unittest
 
-from card_details_format import CardDetailsFormatter
+from card_details_format import CardDetailsFormatter, combine_mana_symbols
 
 
 class CardFormatterSpec(unittest.TestCase):
@@ -19,25 +19,25 @@ class CardFormatterSpec(unittest.TestCase):
 
     def test_converts_generic_mana_cost(self):
         self.assertEqual(
-            self.formatter.combine_mana_symbols("{2}"), "{^^}")
+            combine_mana_symbols("{2}"), "{^^}")
     def test_converts_generic_2_digit_mana_cost(self):
         self.assertEqual(
-            self.formatter.combine_mana_symbols("{10}"), f"{{{'^' * 10}}}")
+            combine_mana_symbols("{10}"), f"{{{'^' * 10}}}")
     def test_converts_colored_mana_cost(self):
         self.assertEqual(
-            self.formatter.combine_mana_symbols("{2}{R}"), "{^^RR}")
+            combine_mana_symbols("{2}{R}"), "{^^RR}")
 
     def test_converts_semi_mana_cost(self):
         self.assertEqual(
-            self.formatter.combine_mana_symbols("{2}{R/U}"), "{^^RU}")
+            combine_mana_symbols("{2}{R/U}"), "{^^RU}")
 
     def test_converts_tap_cost(self):
         self.assertEqual(
-            self.formatter.combine_mana_symbols("{T}"), "T")
+            combine_mana_symbols("{T}"), "T")
 
     def test_converts_semi_numbered_mana(self):
         self.assertEqual(
-            self.formatter.combine_mana_symbols("{2/R}{R}"), "{2RRR}")
+            combine_mana_symbols("{2/R}{R}"), "{2RRR}")
 
     def test_splits_card_type_single_type(self):
         self.assertEqual(
@@ -68,18 +68,18 @@ class CardTextFormatSpec(unittest.TestCase):
     def test_newline_replaced(self):
         self.assertEqual(
             self.formatter.convert_card_text("flying,\nhaste"),
-            "flying,\\\\haste"
+            "flying,\\haste"
         )
     def test_replaces_mana_symbols(self):
         self.assertEqual(
             self.formatter.convert_card_text("flying,\n{2}{R/U}{G}, {T}: gains +4/+2"),
-            "flying,\\\\{^^RUGG}, T: gains +4/+2"
+            "flying,\\{^^RUGG}, T: gains +4/+2"
         )
 
     def test_replaces_mana_symbols_duplicates(self):
         self.assertEqual(
             self.formatter.convert_card_text("flying,\n{G}: add {G}"),
-            "flying,\\\\{GG}: add {GG}"
+            "flying,\\{GG}: add {GG}"
         )
 
 
