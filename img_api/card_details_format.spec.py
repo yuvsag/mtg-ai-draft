@@ -72,8 +72,14 @@ class CardTextFormatSpec(unittest.TestCase):
         )
     def test_replaces_mana_symbols(self):
         self.assertEqual(
-            self.formatter.convert_card_text("flying,\n{2}{R/U}{G}: gains +4/+2"),
-            "flying,\\\\{^^RUGG}: gains +4/+2"
+            self.formatter.convert_card_text("flying,\n{2}{R/U}{G}, {T}: gains +4/+2"),
+            "flying,\\\\{^^RUGG}, T: gains +4/+2"
+        )
+
+    def test_replaces_mana_symbols_duplicates(self):
+        self.assertEqual(
+            self.formatter.convert_card_text("flying,\n{G}: add {G}"),
+            "flying,\\\\{GG}: add {GG}"
         )
 
 

@@ -83,8 +83,19 @@ class CardDetailsFormatter:
 
     def convert_card_text(self, card_text: str):
         new_text = card_text.replace("\n", "\\\\")
-        end_of_cost = [' ', '.', ',', ';', ':']
-        i = -1
-        while i < len(new_text):
-            i += 1
+
+        opening_braces = re.finditer("[^}]{|^{", new_text)  # finds opening '{'
+        arr1 = [m.span()[1] - 1 for m in opening_braces]  # get their index
+
+        closing_braces = re.finditer("}[^{]|}$", new_text)  # finds closing '}'
+        arr2 = [m.span()[0] for m in closing_braces]  # get their index
+        braces = list(zip(arr1, arr2))
+
+        old_new = []
+        for start, end in braces:
+            cost_symbols = new_text[start:end+1]
+            new_cost_symbols = self.combine_mana_symbols(cost_symbols)
+            old_new.append((cost_symbols, new_cost_symbols))
+        for old, new in old_new:
+            new_text = new_text.replace(old, new, 1)
         return new_text
