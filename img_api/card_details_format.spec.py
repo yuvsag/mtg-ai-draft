@@ -33,7 +33,7 @@ class CardFormatterSpec(unittest.TestCase):
 
     def test_converts_tap_cost(self):
         self.assertEqual(
-            combine_mana_symbols("{T}"), "T")
+            combine_mana_symbols("{T}"), "{T}")
 
     def test_converts_semi_numbered_mana(self):
         self.assertEqual(
@@ -48,7 +48,10 @@ class CardFormatterSpec(unittest.TestCase):
         self.assertEqual(
             self.formatter.split_card_type("Artifact Creature"),
             {"type1": "Artifact", "type2": "Creature", "subtypes": ""})
-
+    def test_splits_card_type_one_subtype(self):
+        self.assertEqual(
+            self.formatter.split_card_type("Creature - Goblin"),
+            {"type1": "Creature", "type2": "", "subtypes": "Goblin"})
     def test_splits_card_type_with_subtypes(self):
         self.assertEqual(
             self.formatter.split_card_type(
@@ -73,7 +76,7 @@ class CardTextFormatSpec(unittest.TestCase):
     def test_replaces_mana_symbols(self):
         self.assertEqual(
             self.formatter.convert_card_text("flying,\n{2}{R/U}{G}, {T}: gains +4/+2"),
-            "flying,\\{^^RUGG}, T: gains +4/+2"
+            "flying,\\{^^RUGG}, {T}: gains +4/+2"
         )
 
     def test_replaces_mana_symbols_duplicates(self):
