@@ -110,7 +110,7 @@ class CardDetailsFormatter:
         return combine_mana_symbols(mana_cost)
 
     def split_card_type(self, card_type: str):
-        split_list = card_type.split(" - ")
+        split_list = card_type.split(" — ")
         major_types = split_list[0].split(" ")
         output = {}
         output['type1'] = major_types[0]
