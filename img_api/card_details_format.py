@@ -125,7 +125,8 @@ class CardDetailsFormatter:
         new_text = card_text.replace(
             "\n", "\\").replace(
             "\\n", "\\").replace(
-            "—", "~")
+            "—", "~").replace(
+            "•", "*")
 
         braces = find_all_full_braces(new_text)
         old_new = []
