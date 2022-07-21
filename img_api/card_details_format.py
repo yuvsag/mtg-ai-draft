@@ -122,7 +122,10 @@ class CardDetailsFormatter:
     def convert_card_text(self, card_text: str):
         if card_text == "":
             return ""
-        new_text = card_text.replace("\n", "\\").replace("\\n", "\\")
+        new_text = card_text.replace(
+            "\n", "\\").replace(
+            "\\n", "\\").replace(
+            "—", "~")
 
         braces = find_all_full_braces(new_text)
         old_new = []
