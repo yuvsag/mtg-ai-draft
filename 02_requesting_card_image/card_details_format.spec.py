@@ -57,6 +57,10 @@ class CardFormatterSpec(unittest.TestCase):
             self.formatter.split_card_type(
                 "Artifact Creature — Goblin Spirit"),
             {"type1": "Artifact", "type2": "Creature", "subtypes": "Goblin Spirit"})
+    def test_splits_card_type_with_unique_separator(self):
+        self.assertEqual(
+            self.formatter.split_card_type("Creature ~ Goblin"),
+            {"type1": "Creature", "type2": "", "subtypes": "Goblin"})
 
 class CardTextFormatSpec(unittest.TestCase):
 

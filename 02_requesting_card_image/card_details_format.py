@@ -109,15 +109,17 @@ class CardDetailsFormatter:
             return ""
         return combine_mana_symbols(mana_cost)
 
-    def split_card_type(self, card_type: str):
-        split_list = card_type.split(" — ")
-        major_types = split_list[0].split(" ")
+    def split_card_type(self, card_types: str):
+        card_types_arr = card_types.split(" ")
+        card_types_arr[:] = [x for x in card_types_arr if x]
         output = {}
-        output['type1'] = major_types[0]
-        output['type2'] = major_types[1] if 1 < len(major_types) else ""
-        output['subtypes'] = ""
-        if len(split_list) > 1:
-            output['subtypes'] = split_list[1]
+        output['type2'] = ''
+        output['subtypes'] = ''
+        for i, card_type in enumerate(card_types_arr):
+            if not bool(re.match(r"[\w]", card_type)):
+                output['subtypes'] = " ".join(card_types_arr[i+1::])
+                break
+            output[f'type{i+1}'] = card_type
         return output
 
     def convert_card_text(self, card_text: str):
