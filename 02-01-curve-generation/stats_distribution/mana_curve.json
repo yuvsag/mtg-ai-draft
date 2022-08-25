@@ -1,0 +1,44 @@
+{
+  "1": {
+    "Instant": 2,
+    "Sorcery": 0.4,
+    "Enchantment": 0.09,
+    "Artifact": 2,
+    "Creature": 5
+  },
+  "2": {
+    "Instant": 3,
+    "Sorcery": 1.5,
+    "Enchantment": 1,
+    "Artifact": 4,
+    "Creature": 50
+  },
+  "3": {
+    "Instant": 3,
+    "Sorcery": 3,
+    "Enchantment": 1.5,
+    "Artifact": 5,
+    "Creature": 45
+  },
+  "4": {
+    "Instant": 2,
+    "Sorcery": 3,
+    "Enchantment": 2,
+    "Artifact": 2,
+    "Creature": 30
+  },
+  "5": {
+    "Instant": 0.5,
+    "Sorcery": 2.5,
+    "Enchantment": 2,
+    "Artifact": 1,
+    "Creature": 25
+  },
+  "6-10": {
+    "Instant": 0.2,
+    "Sorcery": 0.6,
+    "Enchantment": 0.4,
+    "Artifact": 0.3,
+    "Creature": 15
+  }
+}

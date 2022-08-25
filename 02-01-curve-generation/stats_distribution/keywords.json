@@ -1,0 +1,12 @@
+{
+  "Enchantment": {
+    "Whenever": 3,
+    "When": 2,
+    "Creatures": 4
+  },
+  "Artifact": {
+    "~": 5,
+    "{T},": 3,
+    "Tap": 0.5
+  }
+}
